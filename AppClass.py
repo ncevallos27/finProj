@@ -21,7 +21,7 @@ class App():
                 self.model = BSModel()
                 break
             else:
-                print("Invalid Input Try Again")
+                print("Not an Option")
 
     def run(self):
         print("\nSelect Option Below")
@@ -49,11 +49,7 @@ class App():
             elif selected == 4:
                 return 1
             else:
-                print("Invalid Input Try Again")
+                print("Not an Option")
 
-        quitVal = input("Quit App? [Y/N] ")
-        if quitVal.upper() == 'Y':
-            return 1
-        else:
-            return 0
+        return 0
         

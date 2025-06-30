@@ -35,13 +35,9 @@ class BSModel():
             elif selected == 4:
                 return 1
             else:
-                print("Invalid Input Try Again")
+                print("Not an Option")
 
-        quitVal = input("Quit Model? [Y/N] ")
-        if quitVal.upper() == 'Y':
-            return 1
-        else:
-            return 0
+        return 0
 
     def usage(self):
         pass

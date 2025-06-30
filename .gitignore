@@ -1,2 +1,8 @@
 __pycache__/
 *.py[cod]
+
+.env
+
+.venv/
+__pycache__/AppClass.cpython-313.pyc
+__pycache__/BSModelClass.cpython-313.pyc
