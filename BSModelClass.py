@@ -7,9 +7,14 @@ r = 0.05  #risk free rate
 T = 1  #time to expiration
 sigma = 0.2  #volatility
 
-class BSmodel():
+class BSModel():
     def __init__(self):
         pass
+
+    def run(self):
+        print("\nRunning Black Scholes Model")
+        
+
 
     def calc_call(price, strike, rate, time, vol):
         d1 = (math.log(price/strike) + (rate+(math.pow(vol, 2)/2))*time)/(vol*math.sqrt(time))
