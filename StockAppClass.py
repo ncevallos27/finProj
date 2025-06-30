@@ -1,6 +1,6 @@
 import os
 
-class SearchApp():
+class StockApp():
     def __init__(self):
         self.api = os.getenv("stockAPI")
 

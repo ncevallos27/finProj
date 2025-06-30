@@ -1,8 +1,9 @@
 from BSModelClass import BSModel
 
 class App():
-    def __init__(self, m=None):
+    def __init__(self, m=None, a=None):
         model = m
+        app = a
 
     def setModel(self):
         print("\nSelect Model")
@@ -26,9 +27,8 @@ class App():
     def run(self):
         print("\nSelect Option Below")
         print("1. Run Option Pricing")
-        print("2. Search Ticker")
-        print("3. Get Stock Info")
-        print("4. Quit")
+        print("2. Get Stock Info")
+        print("3. Quit")
         while True:
             selected = 0
             while True:
@@ -46,7 +46,7 @@ class App():
                     if val == 1:
                         break
                 break
-            elif selected == 4:
+            elif selected == 3:
                 return 1
             else:
                 print("Not an Option")
