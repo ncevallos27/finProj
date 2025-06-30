@@ -8,9 +8,16 @@ class App():
         print("\nSelect Model")
         print("1. Black Scholes Model")
         while True:
-            selected = input("Number: ")
+            selected = 0
+            while True:
+                selected = input("Number: ")
+                try:
+                    selected = int(selected)
+                    break
+                except:
+                    print("Invalid Input")
 
-            if int(selected) == 1:
+            if selected == 1:
                 self.model = BSModel()
                 break
             else:
@@ -23,16 +30,28 @@ class App():
         print("3. Get Stock Info")
         print("4. Quit")
         while True:
-            selected = input("Number: ")
+            selected = 0
+            while True:
+                selected = input("Number: ")
+                try:
+                    selected = int(selected)
+                    break
+                except:
+                    print("Invalid Input")
 
-            if int(selected) == 1:
+            if selected == 1:
                 self.setModel()
-                self.model.run()
+                while True:
+                    val = self.model.run()
+                    if val == 1:
+                        break
                 break
+            elif selected == 4:
+                return 1
             else:
                 print("Invalid Input Try Again")
 
-        quitVal = input("Quit? [Y/N] ")
+        quitVal = input("Quit App? [Y/N] ")
         if quitVal.upper() == 'Y':
             return 1
         else:
