@@ -15,8 +15,8 @@ class BSModel():
         print("\nRunning Black Scholes Model")
         print("Select An Option Below")
         print("1. Calculate")
-        print("2. See Usage")
-        print("3. See Info")
+        #print("2. See Usage")
+        #print("3. See Info")
         print("4. Quit")
 
         while True:

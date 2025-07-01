@@ -13,8 +13,8 @@ class StockApp():
         print("\nStock Price App")
         print("Select An Option Below")
         print("1. Get Stock Price")
-        print("2. Search Stock")
-        print("3. See Info")
+        #print("2. Search Stock")
+        #print("3. See Info")
         print("4. Set API Key")
         print("5. Quit")
 
@@ -31,6 +31,9 @@ class StockApp():
             if selected == 1:
                 self.getPrice()
                 break
+            elif selected == 4:
+                newKey = input("Enter new API key: ")
+                self.setAPI(newKey)
             elif selected == 5:
                 return 1
             else:
