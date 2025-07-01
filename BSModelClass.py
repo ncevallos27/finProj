@@ -1,5 +1,6 @@
 from scipy.stats import norm
 import math
+import numpy as np
 
 S = 100  #current stock price
 K = 100  #strike price
@@ -15,9 +16,10 @@ class BSModel():
         print("\nRunning Black Scholes Model")
         print("Select An Option Below")
         print("1. Calculate")
-        #print("2. See Usage")
-        #print("3. See Info")
-        print("4. Quit")
+        print("2. Grid Calculator")
+        #print("3. See Usage")
+        #print("4. See Info")
+        print("5. Quit")
 
         while True:
             selected = 0
@@ -32,7 +34,10 @@ class BSModel():
             if selected == 1:
                 self.calculate()
                 break
-            elif selected == 4:
+            elif selected == 2:
+                self.gridCalc()
+                break
+            elif selected == 5:
                 return 1
             else:
                 print("Not an Option")
@@ -79,7 +84,19 @@ class BSModel():
         print(f"rhos:   {rhos[0]}   {rhos[1]}")
         print(f"intrinsics:   {intrinsics[0]}   {intrinsics[1]}")
 
+    def gridCalc(self):
+        print("\nCalculator")
+        
+        minstockPrice = self.getInput("Enter Min Stock Price: ")
+        maxstockPrice = self.getInput("Enter Max Stock Price: ")
+        strikePrice = self.getInput("Enter Strike Price: ")
+        rfrate = self.getInput("Enter Risk Free Rate as a decimal: ")
+        time = self.getInput("Enter Time in Years: ")
+        minVol = self.getInput("Enter Min Volatility: ")
+        maxVol = self.getInput("Enter Max Volatility: ")
 
+        stockPrices = np.linspace(minstockPrice, maxstockPrice, 10)
+        volValues = np.linspace(minVol, maxVol, 10)
 
 
     def calc_call(self, price, strike, rate, time, vol):
