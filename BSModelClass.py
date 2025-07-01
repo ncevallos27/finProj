@@ -93,7 +93,7 @@ class BSModel():
         print(f"intrinsics:   {round(intrinsics[0], 2)}   {round(intrinsics[1], 2)}")
 
     def gridCalc(self):
-        print("\nCalculator")
+        print("\nGrid Calculator")
         
         minstockPrice = self.getInput("Enter Min Stock Price: ")
         maxstockPrice = self.getInput("Enter Max Stock Price: ")
@@ -107,13 +107,19 @@ class BSModel():
         volValues = np.linspace(minVol, maxVol, 10)
 
         optionType = self.getInput("Enter type of option 'c' for call or 'p' for put: [c/p] ", ['c', 'p'])
+        
+        print(f'{"".rjust(6)} ', end="")
+        for vol in volValues:
+            print(f'{str(round(vol, 3)).rjust(6)} ', end="")
+        print("")
 
         for price in stockPrices:
+            print(f'{str(round(price, 2)).rjust(6)} ', end="")
             for volVal in volValues:
                 if optionType == 'c':
-                    print(f'{round(self.calc_call(price, strikePrice, rfrate, time, volVal), 2)} ', end="")
+                    print(f'{str(round(self.calc_call(price, strikePrice, rfrate, time, volVal), 2)).rjust(6)} ', end="")
                 else:
-                    print(f'{round(self.calc_put(price, strikePrice, rfrate, time, volVal), 2)} ', end="")
+                    print(f'{str(round(self.calc_put(price, strikePrice, rfrate, time, volVal), 2)).rjust(6)} ', end="")
                 
             print("")
 
