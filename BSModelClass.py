@@ -50,14 +50,22 @@ class BSModel():
     def info(self):
         pass
 
-    def getInput(self, message):
-        while True:
-            value = input(message)
-            try:
-                value = float(value)
-                return value
-            except:
-                print("Invalid Format")
+    def getInput(self, message, expected=None):
+        if expected:
+            while True:
+                value = input(message).lower()
+                if value in expected:
+                    return value
+                else:
+                    print("Invalid Input")
+        else:
+            while True:
+                value = input(message)
+                try:
+                    value = float(value)
+                    return value
+                except:
+                    print("Invalid Format")
 
     def calculate(self):
         print("\nCalculator")
@@ -70,19 +78,19 @@ class BSModel():
         print(f"\nEntered Paramaters: {stockPrice}, {strikePrice}, {rfrate}, {time}, {vol}")
 
         print("\n type:   CALL   PUT")
-        print(f"price:   {self.calc_call(stockPrice, strikePrice, rfrate, time, vol)}   {self.calc_put(stockPrice, strikePrice, rfrate, time, vol)}")
+        print(f"price:   {round(self.calc_call(stockPrice, strikePrice, rfrate, time, vol), 2)}   {round(self.calc_put(stockPrice, strikePrice, rfrate, time, vol), 2)}")
         deltas = self.calc_delta(stockPrice, strikePrice, rfrate, time, vol)
         gamma = self.calc_gamma(stockPrice, strikePrice, rfrate, time, vol)
         vega = self.calc_vega(stockPrice, strikePrice, rfrate, time, vol)
         thetas = self.calc_theta(stockPrice, strikePrice, rfrate, time, vol)
         rhos = self.calc_rho(stockPrice, strikePrice, rfrate, time, vol)
         intrinsics = self.calc_intrinsic(stockPrice, strikePrice)
-        print(f"deltas:   {deltas[0]}   {deltas[1]}")
-        print(f"gamma:   ---{gamma}---")
-        print(f"vega:   ---{vega}---")
-        print(f"thetas:   {thetas[0]}   {thetas[1]}")
-        print(f"rhos:   {rhos[0]}   {rhos[1]}")
-        print(f"intrinsics:   {intrinsics[0]}   {intrinsics[1]}")
+        print(f"deltas:   {round(deltas[0], 3)}   {round(deltas[1], 3)}")
+        print(f"gamma:   ---({round(gamma, 5)})---")
+        print(f"vega:   ---({round(vega, 3)})---")
+        print(f"thetas:   {round(thetas[0], 3)}   {round(thetas[1], 3)}")
+        print(f"rhos:   {round(rhos[0], 3)}   {round(rhos[1], 3)}")
+        print(f"intrinsics:   {round(intrinsics[0], 2)}   {round(intrinsics[1], 2)}")
 
     def gridCalc(self):
         print("\nCalculator")
@@ -97,6 +105,17 @@ class BSModel():
 
         stockPrices = np.linspace(minstockPrice, maxstockPrice, 10)
         volValues = np.linspace(minVol, maxVol, 10)
+
+        optionType = self.getInput("Enter type of option 'c' for call or 'p' for put: [c/p] ", ['c', 'p'])
+
+        for price in stockPrices:
+            for volVal in volValues:
+                if optionType == 'c':
+                    print(f'{round(self.calc_call(price, strikePrice, rfrate, time, volVal), 2)} ', end="")
+                else:
+                    print(f'{round(self.calc_put(price, strikePrice, rfrate, time, volVal), 2)} ', end="")
+                
+            print("")
 
 
     def calc_call(self, price, strike, rate, time, vol):
