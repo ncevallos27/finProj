@@ -1,4 +1,5 @@
 from BSModelClass import BSModel
+from MCModelClass import MCModel
 from StockAppClass import StockApp
 
 class App():
@@ -9,6 +10,7 @@ class App():
     def setModel(self):
         print("\nSelect Model")
         print("1. Black Scholes Model")
+        print("2. Monte Carlo Model")
         while True:
             selected = 0
             while True:
@@ -21,6 +23,9 @@ class App():
 
             if selected == 1:
                 self.model = BSModel()
+                break
+            elif selected == 2:
+                self.model = MCModel()
                 break
             else:
                 print("Not an Option")
