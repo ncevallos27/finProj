@@ -58,7 +58,7 @@ full = np.insert(basket, 0, model.startPrice*np.ones((basket.shape[0], 1)), axis
 
 time = np.linspace(0, model.time, full.shape[1])
 dte = model.time-time
-print(dte)
+#print(dte)
 
 for i in range(full.shape[0]):
     plt.plot(time, full[i], linewidth=0.8)
@@ -66,7 +66,7 @@ for i in range(full.shape[0]):
 plt.show()
 
 dte = np.delete(dte, -1)
-print(dte)
+#print(dte)
 full = np.delete(full, -1, axis=1)
 
 vecBSMCall = np.vectorize(model.bsm.calc_call)
