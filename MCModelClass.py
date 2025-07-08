@@ -52,9 +52,12 @@ model.time = 1
 
 strike = 100
 r = 0.05
+paths = 100
 
-basket = model.simulatePaths(0.08, 100)
-full = np.insert(basket, 0, model.startPrice*np.ones((basket.shape[0], 1)), axis=0)
+basket = model.simulatePaths(0.08, paths)
+new = np.full((basket.shape[0], 1), model.startPrice)
+full = np.hstack((new, basket))
+
 
 time = np.linspace(0, model.time, full.shape[1])
 dte = model.time-time
@@ -63,10 +66,17 @@ dte = model.time-time
 for i in range(full.shape[0]):
     plt.plot(time, full[i], linewidth=0.8)
 
+plt.title('Sim Stock Price')
+plt.show()
+
+averagePrices = np.sum(full, axis=0)/100
+print(averagePrices)
+
+plt.plot(time, averagePrices)
+plt.title('Average Stock Price')
 plt.show()
 
 dte = np.delete(dte, -1)
-#print(dte)
 full = np.delete(full, -1, axis=1)
 
 vecBSMCall = np.vectorize(model.bsm.calc_call)
@@ -76,8 +86,17 @@ for i in range(full.shape[0]):
 for i in range(full.shape[0]):
     plt.plot(dte, full[i], linewidth=0.8)
 
+plt.title('Sim Call Price')
 plt.gca().invert_xaxis()
 
+plt.show()
+
+averagePrices = np.sum(full, axis=0)/100
+print(averagePrices)
+
+plt.plot(dte, averagePrices)
+plt.title('Average Call Price')
+plt.gca().invert_xaxis()
 plt.show()
 
 # places to tkae this,
