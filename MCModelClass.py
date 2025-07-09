@@ -64,7 +64,7 @@ model.time = 1
 strike = 100
 r = 0.05
 paths = 100
-drift = 0.08
+drift = 0.09
 
 print("Calculating Stock Prices")
 basket = model.simulatePaths(drift, paths)
