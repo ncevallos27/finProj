@@ -178,3 +178,9 @@ class BSModel():
 
     def calc_intrinsic(self, price, strike):
         return [max([price-strike, 0]), max([strike-price, 0])]
+    
+    def calc_intrinsic_call(self, price, strike):
+        return max([price-strike, 0])
+    
+    def calc_intrinsic_put(self, price, strike):
+        return max([strike-price, 0])
