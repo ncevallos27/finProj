@@ -125,10 +125,10 @@ class BSModel():
 
 
     def calc_call(self, price, strike, rate, time, vol):
-        d1 = (math.log(price/strike) + (rate+(math.pow(vol, 2)/2))*time)/(vol*math.sqrt(time))
-        d2 = d1 - (vol*math.sqrt(time))
+        d1 = (np.log(price/strike) + (rate+(np.pow(vol, 2)/2))*time)/(vol*np.sqrt(time))
+        d2 = d1 - (vol*np.sqrt(time))
 
-        BSMpred = (price*norm.cdf(d1)) - (strike*math.exp(-1*rate*time)*norm.cdf(d2))
+        BSMpred = (price*norm.cdf(d1)) - (strike*np.exp(-1*rate*time)*norm.cdf(d2))
         return BSMpred
 
     def calc_put(self, price, strike, rate, time, vol):
@@ -179,8 +179,9 @@ class BSModel():
     def calc_intrinsic(self, price, strike):
         return [max([price-strike, 0]), max([strike-price, 0])]
     
-    def calc_intrinsic_call(self, price, strike):
-        return max([price-strike, 0])
     
-    def calc_intrinsic_put(self, price, strike):
-        return max([strike-price, 0])
+    def europeCallPrice(self, price, strike, rate, time, vol):
+        if time == 0:
+            return self.calc_intrinsic(price, strike)[0]
+        else:
+            return self.calc_call(price, strike, rate, time, vol)

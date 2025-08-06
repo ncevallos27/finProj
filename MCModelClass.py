@@ -60,18 +60,20 @@ model = MCModel()
 plt.ion()
 
 model.startPrice = 100
-volatility = 0.2
+model.vol = 0.2
 model.time = 1
 
-strike = 100
+strike = 103
 r = 0.05
 paths = 100
-drift = 0.09
+drift = 0.02
 
 days = int(model.time * 252)
 
+vecEuropeCallPrice = np.vectorize(model.bsm.europeCallPrice)
+
 # print("Calculating Stock Prices")
-# basket = model.simulatePaths(drift, paths, volatility)
+# basket = model.simulatePaths(drift, paths, model.vol)
 # new = np.full((basket.shape[0], 1), model.startPrice)
 # full = np.hstack((new, basket))
 # h, el = getBestWorst(full, model.startPrice)
@@ -79,14 +81,13 @@ days = int(model.time * 252)
 # avgHigh = np.sum(full[h], axis=0)/len(h)
 # avgLow = np.sum(full[el], axis=0)/len(el)
 
-# times = np.linspace(0, model.time, full.shape[1])
-# dte = model.time-times
+times = np.linspace(0, model.time, days+1)
+dte = model.time-times
 
 # sfig, saxes = plt.subplots(2, figsize=(10, 8))
 
 # for i in range(full.shape[0]):
 #     saxes[0].plot(times, full[i], linewidth=0.8, alpha=0.5)
-
 
 # averagePrices = np.sum(full, axis=0)/paths
 # saxes[0].plot(times, averagePrices, label = 'Average Price', color='b')
@@ -106,16 +107,12 @@ days = int(model.time * 252)
 # plt.show()
 # plt.pause(0.01)
 
-# full = np.delete(full, -1, axis=1)
-# dte = np.delete(dte, -1)
-
-# vecBSMCall = np.vectorize(model.bsm.calc_call)
-# vecBSMInr = np.vectorize(model.bsm.calc_intrinsic_call)
+# # OPTIONS CODE FOR STOCK
 
 # options = np.empty((full.shape[0], full.shape[1]))
 
 # for i in range(full.shape[0]):
-#     options[i] = vecBSMCall(full[i], strike, r, dte, model.vol)
+#     options[i] = vecEuropeCallPrice(full[i], strike, r, dte, model.vol)
 
 # startPrice = options[:, 0]
 
@@ -144,13 +141,6 @@ days = int(model.time * 252)
 # axes[0, 1].set_title('Average Call Price')
 # axes[0, 1].invert_xaxis()
 
-# dte = np.append(dte, 0)
-# lastcolumn = vecBSMInr(full[:, -1], strike)[:, np.newaxis]
-
-# #print(full)
-# options = np.hstack((options, lastcolumn))
-# #print(full)
-
 # pnl = options-startPrice[:, np.newaxis]
 
 # for i in range(pnl.shape[0]):
@@ -163,8 +153,13 @@ days = int(model.time * 252)
 # axes[1, 0].set_title('PnL For Call')
 # axes[1, 0].invert_xaxis()
 
+# averagePnl = np.sum(pnl, axis=0)/paths
+# postive = averagePnl > 0
+# negative = averagePnl < 0
 
-# axes[1, 1].plot(dte, np.sum(pnl, axis=0)/paths)
+# axes[1, 1].plot(dte, averagePnl, linewidth=0.8, color='k')
+# axes[1, 1].fill_between(dte, averagePnl, 0, where=postive, color='g', alpha=0.1)
+# axes[1, 1].fill_between(dte, averagePnl, 0, where=negative, color='r', alpha=0.1)
 # axes[1, 1].set_title('Average pnl')
 # axes[1, 1].invert_xaxis()
 
@@ -173,8 +168,7 @@ days = int(model.time * 252)
 # plt.show()
 # plt.pause(0.01)
 
-# # Final line at bottom of MCModelClass.py
-# input("Simulation complete. Press Enter to close plots...")
+# input("Part 1 complete. Press Enter to close plots...")
 
 # # places to tkae this,
 # # new graph with average, average profitable and un profitable paths, same for options
@@ -188,6 +182,8 @@ numVols = 20
 totalPath = numPerVol*numVols
 
 volfig, volAxes = plt.subplots(2, figsize=(10, 8))
+ovolfig, ovolAxes = plt.subplots(2, figsize=(10, 8))
+pnlfig, pnlAxes = plt.subplots(2, figsize=(10, 8))
 
 vols = np.linspace(startVol, endVol, numVols)
 
@@ -195,6 +191,7 @@ cmap = plt.get_cmap('inferno')
 colors = [cmap(i) for i in np.linspace(0, 1, numVols)]
 
 prices = np.empty((0, days+1))
+optionsPrices = np.empty((0, days+1))
 
 times = np.linspace(0, model.time, prices.shape[1])
 
@@ -202,37 +199,57 @@ for i, vol in enumerate(vols):
     basket = model.simulatePaths(drift, numPerVol, vol)
     new = np.full((basket.shape[0], 1), model.startPrice)
     full = np.hstack((new, basket))
-    prices = np.vstack((prices, full))
+    options = np.empty((full.shape[0], days+1))
     for j in range(full.shape[0]):
+        options[j] = vecEuropeCallPrice(full[j], strike, r, dte, vol)
         if j == 0:
             volAxes[0].plot(times, full[j], label=f"vol: {round(vol, 4)}", color=colors[i], alpha=0.1)
+            ovolAxes[0].plot(times, options[j], label=f"vol: {round(vol, 4)}", color=colors[i], alpha=0.1)
         else:
-            volAxes[0].plot(times, full[j], color=colors[i], alpha=0.4)
+            if j < 50:
+                volAxes[0].plot(times, full[j], color=colors[i], alpha=0.1)
+                ovolAxes[0].plot(times, options[j], color=colors[i], alpha=0.1)
+
+    prices = np.vstack((prices, full))
+    optionsPrices = np.vstack((optionsPrices, options))
+    
 
 volAxes[0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=5)
 volAxes[0].set_title("Prices")
 
-avgprices = np.empty((0, days+1))
+ovolAxes[0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=5)
+ovolAxes[0].set_title("Options Prices")
 
+# print(optionsPrices.shape)
+# print(prices.shape)
+
+avgprices = np.empty((0, days+1))
+avgoprices = np.empty((0, days+1))
 
 for i, vol in enumerate(vols):
-    basket = model.simulatePaths(drift, numPerVol, vol)
-    new = np.full((basket.shape[0], 1), model.startPrice)
-    full = np.hstack((new, basket))
-    prices = np.vstack((prices, full))
+    full = prices[i*numPerVol:(i+1)*numPerVol]
+    fullOptions = optionsPrices[i*numPerVol:(i+1)*numPerVol]
+
+    avgprices = np.vstack((avgprices, full))
+    avgoprices = np.vstack((avgoprices, fullOptions))
 
     averageBasket = np.sum(full, axis=0)/numPerVol
-
-    print(averageBasket)
+    averageOptionBasket = np.sum(fullOptions, axis=0)/numPerVol
 
     volAxes[1].plot(times, averageBasket, label=f"vol: {round(vol, 4)}", color=colors[i])
+    ovolAxes[1].plot(times, averageOptionBasket, label=f"vol: {round(vol, 4)}", color=colors[i])
 
 volAxes[1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=5)
 volAxes[1].set_title("Averages")
 
+ovolAxes[1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=5)
+ovolAxes[1].set_title("Averages")
 
-plt.tight_layout()
+volfig.tight_layout()
+ovolfig.tight_layout()
 plt.show()
 
 plt.pause(0.01)
 input("Simulation complete. Press Enter to close plots...")
+
+plt.close()
