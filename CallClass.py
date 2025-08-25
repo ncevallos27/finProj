@@ -14,14 +14,14 @@ class Call:
         self.start = start
         self.end = end
 
-    def run(self, steps, strat):
+    def run(self, steps, strat, envt):
         # TODO: implement calculation
         # TODO: change how calc works with time, pass in time as a parameter
-        for i in steps:
+        self.paths = np.
+
+        for i in range(0, steps):
             if i >= self.start and i < self.end:
-
-
-        pass
+                
         
     def calc_call(self):
         if self.time == 0:

@@ -1,9 +1,10 @@
 class Strategy():
-    def __init__(self, steps=252):
+    def __init__(self, env, steps=252):
         self.arrStrat = []
         self.count = 0
         self.steps = steps
         self.paths = None
+        self.env = env
 
     def setPaths(self, paths):
         self.paths = paths
@@ -14,7 +15,7 @@ class Strategy():
 
     def run(self):
         for strat in self.arrStrat:
-            strat.run(self.steps, self.paths)
+            strat.run(self.steps, self)
 
         return self.count
     
