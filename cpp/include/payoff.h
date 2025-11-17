@@ -11,7 +11,7 @@ public:
 	Payoff() = default;
 	virtual ~Payoff() = default;
 
-	std::vector<double>& getPayoffVector(std::vector<double> &prices);
+	void getPayoffVector(std::vector<double> &prices, double strike);
 
 	virtual double calculate(double price, double strike) = 0;
 };

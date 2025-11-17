@@ -4,17 +4,27 @@
 
 #ifndef STOCK_H
 #define STOCK_H
+#include <vector>
+
 #include "pricer.h"
 
 class Stock {
 public:
-	Stock(std::shared_ptr<Pricer> model, double start, double vol);
+	Stock(const std::shared_ptr<Pricer> &model, double start, double vol);
 
-	std::vector<double> price(int step) const;
+	void price(std::vector<double> &prices, int step);
+
+	double getPricerTimeStep() const;
+	PricerType getPricerIndentity();
+	double getPricerDiscount() const;
+
+	double getPricerProb() const;
+
 private:
 	std::shared_ptr<Pricer> model;
 	double start;
 	double vol;
+	std::vector<double> priceVector;
 };
 
 #endif //STOCK_H

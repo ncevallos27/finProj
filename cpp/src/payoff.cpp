@@ -4,12 +4,9 @@
 
 #include "payoff.h"
 
-Payoff::Payoff(double strike) : strike(strike) {}
-
-std::vector<double> &Payoff::getPayoffVector(std::vector<double> &prices) {
+void Payoff::getPayoffVector(std::vector<double> &prices, double strike) {
 	for (double & price : prices) {
-		price = this->calculate(price);
+		price = this->calculate(price, strike);
 	}
-	return prices;
 }
 

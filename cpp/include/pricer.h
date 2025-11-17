@@ -6,21 +6,27 @@
 #define PRICER_H
 #include <string>
 
+enum class PricerType {
+	BinomialTree
+};
+
 class Pricer {
 public:
-	Pricer(int paths, double timeStep, double discount);
+	Pricer(int paths, double timeStep, double discount, PricerType type);
 	virtual ~Pricer() = default;
-	virtual std::vector<double> price(double start, int step) = 0;
-	virtual std::string identify() = 0;
+	virtual void price(std::vector<double> &vector, double start, int step) = 0;
+	PricerType identify();
 	virtual void setup(double vol) = 0;
 	virtual double getProb() = 0;
 
+	double getTimeStep() const;
+	double getDiscount() const;
+
 protected:
+	PricerType pricerType;
 	int paths;
 	double timeStep;
 	double r;
-	int currentTime;
-
 };
 
 #endif //PRICER_H

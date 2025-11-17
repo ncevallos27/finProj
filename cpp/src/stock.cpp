@@ -5,10 +5,26 @@
 #include "stock.h"
 #include "binomialTree.h"
 
-Stock::Stock(std::shared_ptr<Pricer> model, double start, double vol) : model(std::move(model)), start(start), vol(vol) {
+Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol) : model(model), start(start), vol(vol) {
 	this->model->setup(vol);
 }
 
-std::vector<double> Stock::price(int step) const {
-	return this->model->price(this->start, step);
+void Stock::price(std::vector<double> &prices, int step) {
+	this->model->price(prices, this->start, step);
+}
+
+double Stock::getPricerTimeStep() const {
+	return this->model->getTimeStep();
+}
+
+PricerType Stock::getPricerIndentity() {
+	return this->model->identify();
+}
+
+double Stock::getPricerDiscount() const {
+	return this->model->getDiscount();
+}
+
+double Stock::getPricerProb() const {
+	return this->model->getProb();
 }
