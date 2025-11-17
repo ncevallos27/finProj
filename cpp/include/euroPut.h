@@ -8,10 +8,10 @@
 
 class EuroPut final : public Payoff {
 public:
-	explicit EuroPut(double strike);
+	EuroPut();
 	~EuroPut() override = default;
 
-	double calculate(double price) override;
+	double calculate(double price, double strike) override;
 };
 
 #endif //EUROCALL_H

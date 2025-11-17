@@ -8,15 +8,12 @@
 
 class Payoff {
 public:
-	explicit Payoff(double strike);
+	Payoff() = default;
 	virtual ~Payoff() = default;
 
 	std::vector<double>& getPayoffVector(std::vector<double> &prices);
 
-	virtual double calculate(double price) = 0;
-
-protected:
-	double strike;
+	virtual double calculate(double price, double strike) = 0;
 };
 
 #endif //PAYOFF_H

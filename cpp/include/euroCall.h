@@ -8,10 +8,10 @@
 
 class EuroCall final : public Payoff {
 public:
-	explicit EuroCall(double strike);
+	EuroCall() = default;
 	~EuroCall() override = default;
 
-	double calculate(double price) override;
+	double calculate(double price, double strike) override;
 };
 
 #endif //EUROCALL_H

@@ -4,9 +4,7 @@
 
 #include "euroPut.h"
 
-EuroPut::EuroPut(double strike) : Payoff(strike) {}
-
-double EuroPut::calculate(double price) {
-	return std::max(this->strike-price, 0.0);
+double EuroPut::calculate(double price, double strike) {
+	return std::max(strike-price, 0.0);
 }
 
