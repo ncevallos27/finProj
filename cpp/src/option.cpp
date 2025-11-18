@@ -36,3 +36,7 @@ double Option::price(double otherMaturity) {
 optionPosition Option::getPosition() const {
 	return this->position;
 }
+
+double Option::getPayoff(const double price) const {
+	return this->payoff->calculate(price, this->strike);
+}

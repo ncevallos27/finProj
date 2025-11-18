@@ -20,6 +20,7 @@ public:
 	double price();
 	double price(double otherMaturity);
 	[[nodiscard]] optionPosition getPosition() const;
+	[[nodiscard]] double getPayoff(double price) const;
 
 private:
 	std::shared_ptr<Stock> stock;
