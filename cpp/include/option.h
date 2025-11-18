@@ -8,13 +8,18 @@
 #include "payoff.h"
 #include "stock.h"
 
+enum class optionPosition {
+	Long, Short
+};
+
 class Option {
 public:
 
-	Option(const std::shared_ptr<Stock> &stock, const std::shared_ptr<Payoff> &payoff, double strike, double timeMaturity);
+	Option(const std::shared_ptr<Stock> &stock, const std::shared_ptr<Payoff> &payoff, double strike, double timeMaturity, optionPosition position);
 
 	double price();
 	double price(double otherMaturity);
+	[[nodiscard]] optionPosition getPosition() const;
 
 private:
 	std::shared_ptr<Stock> stock;
@@ -22,6 +27,8 @@ private:
 	double strike;
 	std::vector<double> prices;
 	double timeMaturity;
+	optionPosition position;
+
 };
 
 #endif //OPTION_H
