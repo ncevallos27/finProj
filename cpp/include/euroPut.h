@@ -2,16 +2,16 @@
 // Created by Nico Cevallos on 11/17/25.
 //
 
-#ifndef EUROCALL_H
-#define EUROCALL_H
+#ifndef EUROPUT_H
+#define EUROPUT_H
 #include "payoff.h"
 
 class EuroPut final : public Payoff {
 public:
-	EuroPut();
+	EuroPut() = default;
 	~EuroPut() override = default;
 
 	double calculate(double price, double strike) override;
 };
 
-#endif //EUROCALL_H
+#endif //EUROPUT_H
