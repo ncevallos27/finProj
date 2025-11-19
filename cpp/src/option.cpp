@@ -5,7 +5,7 @@
 
 #include "option.h"
 
-Option::Option(const std::shared_ptr<Stock> &stock, const std::shared_ptr<Payoff> &payoff, double strike, double timeMaturity, optionPosition position) : stock(stock), payoff(payoff), strike(strike), timeMaturity(timeMaturity), position(position) {}
+Option::Option(const std::shared_ptr<Stock> &stock, const std::shared_ptr<Payoff> &payoff, double strike, double timeMaturity, OptionPosition position) : stock(stock), payoff(payoff), strike(strike), timeMaturity(timeMaturity), position(position) {}
 
 double Option::price() {
 	return this->price(this->timeMaturity);
@@ -33,7 +33,7 @@ double Option::price(double otherMaturity) {
 	return startPrice;
 }
 
-optionPosition Option::getPosition() const {
+OptionPosition Option::getPosition() const {
 	return this->position;
 }
 

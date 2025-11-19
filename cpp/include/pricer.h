@@ -7,7 +7,7 @@
 #include <string>
 
 enum class PricerType {
-	BinomialTree
+	BinomialTree, MonteCarlo
 };
 
 class Pricer {

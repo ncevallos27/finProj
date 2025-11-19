@@ -10,6 +10,7 @@ BinomialTree::BinomialTree(int paths, double timeStep, double discount) : Pricer
 
 BinomialTree::BinomialTree(int paths, double timeStep, double discount, double u, double d) : Pricer(paths, timeStep, discount, PricerType::BinomialTree), u(u), d(d) {}
 
+// TODO: this needs to be sorted as well as the improper setup() command, this might cuase some tech debt
 void BinomialTree::calcUp(double vol) {
 	this->u = std::exp(vol * std::sqrt(this->timeStep));
 	this->d = 1/this->u;
