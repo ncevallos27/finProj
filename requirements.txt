@@ -10,10 +10,10 @@ frozendict==2.4.6
 idna==3.10
 kiwisolver==1.4.8
 markdown-it-py==3.0.0
-matplotlib==3.10.3
+matplotlib~=3.10.8
 mdurl==0.1.2
 multitasking==0.0.11
-numpy==2.3.1
+numpy~=2.3.5
 packaging==25.0
 pandas==2.3.0
 peewee==3.18.1
@@ -26,9 +26,9 @@ pyparsing==3.2.3
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 pytz==2025.2
-requests==2.32.4
+requests~=2.32.5
 rich==14.0.0
-scipy==1.16.0
+scipy~=1.16.3
 six==1.17.0
 soupsieve==2.7
 typing_extensions==4.14.1
@@ -36,3 +36,6 @@ tzdata==2025.2
 urllib3==2.5.0
 websockets==15.0.1
 yfinance==0.2.65
+
+setuptools~=80.9.0
+pybind11~=3.0.1
