@@ -15,7 +15,7 @@ public:
 	void price(std::vector<double> &prices, int step);
 
 	double getPricerTimeStep() const;
-	PricerType getPricerIndentity();
+	PricerType getPricerIdentity();
 	double getPricerDiscount() const;
 
 	double getPricerProb() const;

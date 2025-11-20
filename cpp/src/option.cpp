@@ -18,7 +18,7 @@ double Option::price(double otherMaturity) {
 
 	double startPrice = 0;
 	double prob = this->stock->getPricerProb();
-	switch(this->stock->getPricerIndentity()) {
+	switch(this->stock->getPricerIdentity()) {
 		case PricerType::BinomialTree:
 			for (unsigned int i = 0; i < this->prices.size(); i++) {
 				double binom = std::tgamma(this->prices.size()) / (std::tgamma(i + 1) * std::tgamma(this->prices.size() - i));

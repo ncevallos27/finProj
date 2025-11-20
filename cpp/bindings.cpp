@@ -27,11 +27,11 @@ PYBIND11_MODULE(finProj, m) {
 	/*
 	 *	BINDINGS FOR derived payoff CLASSES
 	 */
-	py::class_<EuroCall, Payoff, py::smart_holder> eurocall(m, "EuroCall");
+	py::class_<EuroCall, Payoff, py::smart_holder> eurocall(m, "EuroCall", py::is_final());
 	eurocall.def(py::init<>());
 	eurocall.def("calculate", &EuroCall::calculate);
 
-	py::class_<EuroPut, Payoff, py::smart_holder> europut(m, "EuroPut");
+	py::class_<EuroPut, Payoff, py::smart_holder> europut(m, "EuroPut", py::is_final());
 	europut.def(py::init<>());
 	europut.def("calculate", &EuroPut::calculate);
 
@@ -49,6 +49,11 @@ PYBIND11_MODULE(finProj, m) {
 		.finalize();
 
 	/*
+	 *	BINDINGS FOR pricer CLASS
+	 */
+	py::class_<Pricer, py::smart_holder> pricer(m, "Pricer");
+
+	/*
 	 *	BINDINGS FOR binomialtree CLASS
 	 */
 	py::class_<BinomialTree, Pricer, py::smart_holder> binomialTree(m, "BinomialTree");
@@ -58,5 +63,26 @@ PYBIND11_MODULE(finProj, m) {
 	binomialTree.def("calcUp", &BinomialTree::calcUp);
 	binomialTree.def("price", &BinomialTree::price);
 	binomialTree.def("setup", &BinomialTree::setup);
+
+	/*
+	 *	BINDINGS FOR stock CLASS
+	 */
+	py::class_<Stock, py::smart_holder> stock(m, "Stock");
+	stock.def(py::init<std::shared_ptr<Pricer>&, double, double>());
+	stock.def("price", &Stock::price);
+	stock.def("getPricerTimeStep", &Stock::getPricerTimeStep);
+	stock.def("getPricerIdentity", &Stock::getPricerIdentity);
+	stock.def("getPricerDiscount", &Stock::getPricerDiscount);
+	stock.def("getPricerProb", &Stock::getPricerProb);
+
+	/*
+	 *	BINDINGS FOR option CLASS
+	 */
+	py::class_<Option, py::smart_holder> option(m, "Option");
+	option.def(py::init<std::shared_ptr<Stock>&, std::shared_ptr<Payoff>&, double, double, OptionPosition>());
+	option.def("price", py::overload_cast<>(&Option::price));
+	option.def("price", py::overload_cast<double>(&Option::price));
+	option.def("getPosition", &Option::getPosition);
+	option.def("getPayoff", &Option::getPayoff);
 
 }

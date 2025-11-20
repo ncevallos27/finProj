@@ -17,7 +17,7 @@ double Stock::getPricerTimeStep() const {
 	return this->model->getTimeStep();
 }
 
-PricerType Stock::getPricerIndentity() {
+PricerType Stock::getPricerIdentity() {
 	return this->model->identify();
 }
 
