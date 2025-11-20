@@ -6,7 +6,7 @@
 
 EuroPut::EuroPut() : Payoff(Path::Independent) {}
 
-void EuroPut::calculate(std::vector<double>& price, double strike) {
-	price[-1] = std::max(strike-price[-1], 0.0);
+void EuroPut::calculate(std::vector<double> &price, double strike) {
+	price.back() = std::max(strike-price.back(), 0.0);
 }
 

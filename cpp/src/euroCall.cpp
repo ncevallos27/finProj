@@ -7,6 +7,6 @@
 EuroCall::EuroCall() : Payoff(Path::Independent) {}
 
 void EuroCall::calculate(std::vector<double> &price, double strike) {
-	price[-1] = std::max(price[-1]-strike, 0.0);
+	price.back() = std::max(price.back()-strike, 0.0);
 }
 
