@@ -21,14 +21,14 @@ double BinomialTree::getProb() {
 	return (std::exp(r * timeStep) - d) / (u - d);
 }
 
-void BinomialTree::price(std::vector<double> &prices, double start, int step) {
+void BinomialTree::priceIndependent(std::vector<std::vector<double>> &prices, double start, int step) {
 	prices.clear();
 	prices.reserve(step + 1);
 
 	// start * u^i * d^(step - i), i from 0 to step
 	for (int i = 0; i <= step; ++i) {
 		double price = start * std::pow(u, i) * std::pow(d, step - i);
-		prices.push_back(price);
+		prices.emplace_back(std::vector{price});
 	}
 }
 

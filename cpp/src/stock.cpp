@@ -9,8 +9,8 @@ Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol) : m
 	this->model->setup(vol);
 }
 
-void Stock::price(std::vector<double> &prices, int step) {
-	this->model->price(prices, this->start, step);
+void Stock::price(std::vector<std::vector<double>> &prices, int step) {
+	this->model->priceIndependent(prices, this->start, step);
 }
 
 double Stock::getPricerTimeStep() const {

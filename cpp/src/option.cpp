@@ -22,7 +22,7 @@ double Option::price(double otherMaturity) {
 		case PricerType::BinomialTree:
 			for (unsigned int i = 0; i < this->prices.size(); i++) {
 				double binom = std::tgamma(this->prices.size()) / (std::tgamma(i + 1) * std::tgamma(this->prices.size() - i));
-				startPrice += binom * this->prices[i] * std::pow(prob, i) * std::pow(1 - prob, this->prices.size() - 1 - i);
+				startPrice += binom * this->prices[i][-1] * std::pow(prob, i) * std::pow(1 - prob, this->prices.size() - 1 - i);
 			}
 			startPrice = startPrice * std::exp(-1 * this->stock->getPricerDiscount() * otherMaturity);
 			break;
@@ -35,8 +35,4 @@ double Option::price(double otherMaturity) {
 
 OptionPosition Option::getPosition() const {
 	return this->position;
-}
-
-double Option::getPayoff(const double price) const {
-	return this->payoff->calculate(price, this->strike);
 }

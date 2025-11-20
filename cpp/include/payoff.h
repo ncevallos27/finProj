@@ -6,14 +6,22 @@
 #define PAYOFF_H
 #include <vector>
 
+enum class Path {
+	Dependent, Independent
+};
+
 class Payoff {
 public:
-	Payoff() = default;
+	explicit Payoff(Path type);
 	virtual ~Payoff() = default;
 
-	void getPayoffVector(std::vector<double> &prices, double strike);
+	void getPayoffVector(std::vector<std::vector<double>> &prices, double strike);
 
-	virtual double calculate(double price, double strike) = 0;
+	virtual void calculate(std::vector<double> &price, double strike) = 0;
+
+	[[nodiscard]] Path getType() const;
+protected:
+	Path type;
 };
 
 #endif //PAYOFF_H

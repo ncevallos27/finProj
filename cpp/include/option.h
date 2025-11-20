@@ -20,13 +20,12 @@ public:
 	double price();
 	double price(double otherMaturity);
 	[[nodiscard]] OptionPosition getPosition() const;
-	[[nodiscard]] double getPayoff(double price) const;
 
 private:
 	std::shared_ptr<Stock> stock;
 	std::shared_ptr<Payoff> payoff;
 	double strike;
-	std::vector<double> prices;
+	std::vector<std::vector<double>> prices;
 	double timeMaturity;
 	OptionPosition position;
 

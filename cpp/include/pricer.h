@@ -14,7 +14,7 @@ class Pricer {
 public:
 	Pricer(int paths, double timeStep, double discount, PricerType type);
 	virtual ~Pricer() = default;
-	virtual void price(std::vector<double> &vector, double start, int step) = 0;
+	virtual void priceIndependent(std::vector<std::vector<double>> &vector, double start, int step) = 0;
 	PricerType identify();
 	virtual void setup(double vol) = 0;
 	virtual double getProb() = 0;

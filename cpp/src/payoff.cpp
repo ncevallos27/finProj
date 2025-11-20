@@ -4,9 +4,14 @@
 
 #include "payoff.h"
 
-void Payoff::getPayoffVector(std::vector<double> &prices, double strike) {
-	for (double & price : prices) {
-		price = this->calculate(price, strike);
+Payoff::Payoff(Path type) : type(type) {}
+
+void Payoff::getPayoffVector(std::vector<std::vector<double>>&prices, double strike) {
+	for (auto &price : prices) {
+		this->calculate(price, strike);
 	}
 }
 
+Path Payoff::getType() const {
+	return this->type;
+}

@@ -4,7 +4,9 @@
 
 #include "euroPut.h"
 
-double EuroPut::calculate(double price, double strike) {
-	return std::max(strike-price, 0.0);
+EuroPut::EuroPut() : Payoff(Path::Independent) {}
+
+void EuroPut::calculate(std::vector<double>& price, double strike) {
+	price[-1] = std::max(strike-price[-1], 0.0);
 }
 

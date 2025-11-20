@@ -18,7 +18,7 @@ public:
   void calcUp(double vol);
 
   // Returns the prices at a given step (from smallest to largest)
-  void price(std::vector<double> &prices, double start, int step) override;
+  void priceIndependent(std::vector<std::vector<double>> &prices, double start, int step) override;
   void setup(double vol) override;
 
 private:

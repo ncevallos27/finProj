@@ -12,7 +12,7 @@ class Stock {
 public:
 	Stock(const std::shared_ptr<Pricer> &model, double start, double vol);
 
-	void price(std::vector<double> &prices, int step);
+	void price(std::vector<std::vector<double>> &prices, int step);
 
 	double getPricerTimeStep() const;
 	PricerType getPricerIdentity();

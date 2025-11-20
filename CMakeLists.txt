@@ -1,13 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(finProj LANGUAGES CXX)
 
-add_custom_target(clean_all
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_BINARY_DIR}/CMakeFiles
-    COMMAND ${CMAKE_COMMAND} -E rm -f ${CMAKE_BINARY_DIR}/CMakeCache.txt
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_BINARY_DIR}/*.o
-    COMMENT "Full clean of CMake build directory"
-)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -28,6 +21,7 @@ include_directories(cpp/src)
 
 # pybind11 is a git submodule at extern/pybind11
 add_subdirectory(extern/pybind11)
+add_subdirectory(debug)
 
 # All core C++ sources (except bindings.cpp)
 file(GLOB FINPROJ_SOURCES "cpp/src/*.cpp")

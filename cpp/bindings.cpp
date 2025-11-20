@@ -23,6 +23,7 @@ PYBIND11_MODULE(finProj, m) {
 	 */
 	py::class_<Payoff, py::smart_holder> payoff(m, "Payoff");
 	payoff.def("getPayoffVector", &Payoff::getPayoffVector);
+	payoff.def("getType", &Payoff::getType);
 
 	/*
 	 *	BINDINGS FOR derived payoff CLASSES
@@ -48,6 +49,11 @@ PYBIND11_MODULE(finProj, m) {
 		.value("Short", OptionPosition::Short)
 		.finalize();
 
+	py::native_enum<Path>(m, "Path", "enum.Enum")
+		.value("Dependent", Path::Dependent)
+		.value("Independent", Path::Independent)
+		.finalize();
+
 	/*
 	 *	BINDINGS FOR pricer CLASS
 	 */
@@ -61,7 +67,7 @@ PYBIND11_MODULE(finProj, m) {
 	binomialTree.def(py::init<int, double, double, double, double>());
 	binomialTree.def("getProb", &BinomialTree::getProb);
 	binomialTree.def("calcUp", &BinomialTree::calcUp);
-	binomialTree.def("price", &BinomialTree::price);
+	binomialTree.def("price", &BinomialTree::priceIndependent);
 	binomialTree.def("setup", &BinomialTree::setup);
 
 	/*
@@ -83,6 +89,5 @@ PYBIND11_MODULE(finProj, m) {
 	option.def("price", py::overload_cast<>(&Option::price));
 	option.def("price", py::overload_cast<double>(&Option::price));
 	option.def("getPosition", &Option::getPosition);
-	option.def("getPayoff", &Option::getPayoff);
 
 }

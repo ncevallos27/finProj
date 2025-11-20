@@ -8,10 +8,10 @@
 
 class EuroCall final : public Payoff {
 public:
-	EuroCall() = default;
+	EuroCall();
 	~EuroCall() override = default;
 
-	double calculate(double price, double strike) override;
+	void calculate(std::vector<double> &price, double strike) override;
 };
 
 #endif //EUROCALL_H

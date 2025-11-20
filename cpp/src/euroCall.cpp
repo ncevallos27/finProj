@@ -4,7 +4,9 @@
 
 #include "euroCall.h"
 
-double EuroCall::calculate(double price, double strike) {
-	return std::max(price-strike, 0.0);
+EuroCall::EuroCall() : Payoff(Path::Independent) {}
+
+void EuroCall::calculate(std::vector<double> &price, double strike) {
+	price[-1] = std::max(price[-1]-strike, 0.0);
 }
 

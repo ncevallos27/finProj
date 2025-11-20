@@ -8,10 +8,10 @@
 
 class EuroPut final : public Payoff {
 public:
-	EuroPut() = default;
+	EuroPut();
 	~EuroPut() override = default;
 
-	double calculate(double price, double strike) override;
+	void calculate(std::vector<double> &price, double strike) override;
 };
 
 #endif //EUROPUT_H
