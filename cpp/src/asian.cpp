@@ -24,7 +24,7 @@ double Asian::calculate(std::vector<double> &price, double strike) {
 
 	double total = 0;
 	int count = 0;
-	for (auto i = price.rbegin(); i != price.rend() && count >= newLookBack; ++i) {
+	for (auto i = price.rbegin(); i != price.rend() && count < newLookBack; ++i) {
 		total += *i;
 		count++;
 	}

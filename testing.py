@@ -10,9 +10,11 @@ def main():
     # o = fp.Option(s, pf, 61, 1.0, fp.OptionPosition.Long)
 
     s2 = fp.Stock(p2, 60, 0.30, 0.05)
-    lcs = LongCallSpread(61, 70, s2, 1)
+    pf2 = fp.Asian(fp.PayoffType.Call, 30)
+    o2 = fp.Option(s2, pf2, 61, 1.0, fp.OptionPosition.Long)
+    # lcs = LongCallSpread(61, 70, s2, 1)
 
-    print(lcs.price())
+    print(o2.price())
 
 
 if __name__ == "__main__":
