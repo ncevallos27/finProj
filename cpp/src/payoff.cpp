@@ -4,7 +4,7 @@
 
 #include "payoff.h"
 
-Payoff::Payoff(Path type) : type(type) {}
+Payoff::Payoff(Path type, PayoffType payoffType) : type(type), payoffType(payoffType) {}
 
 std::vector<double> Payoff::getPayoffVector(std::vector<std::vector<double>>&prices, double strike) {
 	std::vector<double> payoffs;

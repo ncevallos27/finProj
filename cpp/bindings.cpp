@@ -11,9 +11,9 @@
 #include <monteCarlo.h>
 #include <option.h>
 
-#include "euroCall.h"
-#include "euroPut.h"
 #include <pybind11/native_enum.h>
+
+#include "euro.h"
 
 
 PYBIND11_MODULE(finProj, m) {
@@ -29,13 +29,9 @@ PYBIND11_MODULE(finProj, m) {
 	/*
 	 *	BINDINGS FOR derived payoff CLASSES
 	 */
-	py::class_<EuroCall, Payoff, py::smart_holder> eurocall(m, "EuroCall", py::is_final());
-	eurocall.def(py::init<>());
-	eurocall.def("calculate", &EuroCall::calculate);
-
-	py::class_<EuroPut, Payoff, py::smart_holder> europut(m, "EuroPut", py::is_final());
-	europut.def(py::init<>());
-	europut.def("calculate", &EuroPut::calculate);
+	py::class_<Euro, Payoff, py::smart_holder> euro(m, "Euro", py::is_final());
+	euro.def(py::init<PayoffType>());
+	euro.def("calculate", &Euro::calculate);
 
 	/*
 	 *	BINDINGS FOR enum CLASS
@@ -53,6 +49,11 @@ PYBIND11_MODULE(finProj, m) {
 	py::native_enum<Path>(m, "Path", "enum.Enum")
 		.value("Dependent", Path::Dependent)
 		.value("Independent", Path::Independent)
+		.finalize();
+
+	py::native_enum<PayoffType>(m, "PayoffType", "enum.Enum")
+		.value("Call", PayoffType::Call)
+		.value("Put", PayoffType::Put)
 		.finalize();
 
 	/*

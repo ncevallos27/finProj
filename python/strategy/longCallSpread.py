@@ -15,7 +15,7 @@ class LongCallSpread:
         self.stock = stock
         self.timeToMaturity = timeToMaturity
         self.options = []
-        self.payoff = fp.EuroCall()
+        self.payoff = fp.Euro(fp.PayoffType.Call)
 
         self.options.append(fp.Option(self.stock, self.payoff, self.strikeA, self.timeToMaturity, fp.OptionPosition.Long))
         self.options.append(fp.Option(self.stock, self.payoff, self.strikeB, self.timeToMaturity, fp.OptionPosition.Short))

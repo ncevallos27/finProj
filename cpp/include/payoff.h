@@ -10,9 +10,13 @@ enum class Path {
 	Dependent, Independent
 };
 
+enum class PayoffType {
+	Call, Put, Unknown
+};
+
 class Payoff {
 public:
-	explicit Payoff(Path type);
+	explicit Payoff(Path type, PayoffType payoffType);
 	virtual ~Payoff() = default;
 
 	std::vector<double> getPayoffVector(std::vector<std::vector<double>> &prices, double strike);
@@ -22,6 +26,7 @@ public:
 	[[nodiscard]] Path getType() const;
 protected:
 	Path type;
+	PayoffType payoffType;
 };
 
 #endif //PAYOFF_H
