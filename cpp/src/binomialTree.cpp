@@ -32,7 +32,7 @@ void BinomialTree::priceIndependent(std::vector<std::vector<double>> &prices, do
 	}
 }
 
-void BinomialTree::setup(double vol) {
+void BinomialTree::setup(double vol, double drift) {
 	if (this->u == 0) {
 		this->calcUp(vol);
 	}

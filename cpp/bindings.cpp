@@ -8,6 +8,7 @@
 #include "bindings.h"
 
 #include <binomialTree.h>
+#include <monteCarlo.h>
 #include <option.h>
 
 #include "euroCall.h"
@@ -74,7 +75,7 @@ PYBIND11_MODULE(finProj, m) {
 	 *	BINDINGS FOR stock CLASS
 	 */
 	py::class_<Stock, py::smart_holder> stock(m, "Stock");
-	stock.def(py::init<std::shared_ptr<Pricer>&, double, double>());
+	stock.def(py::init<std::shared_ptr<Pricer>&, double, double, double>());
 	stock.def("price", &Stock::price);
 	stock.def("getPricerTimeStep", &Stock::getPricerTimeStep);
 	stock.def("getPricerIdentity", &Stock::getPricerIdentity);
@@ -89,5 +90,14 @@ PYBIND11_MODULE(finProj, m) {
 	option.def("price", py::overload_cast<>(&Option::price));
 	option.def("price", py::overload_cast<double>(&Option::price));
 	option.def("getPosition", &Option::getPosition);
+
+	/*
+	 *	BINDINGS FOR montecarlo CLASS
+	 */
+	py::class_<MonteCarlo, Pricer, py::smart_holder> monteCarlo(m, "MonteCarlo");
+	monteCarlo.def(py::init<int, double, double>());
+	monteCarlo.def("getProb", &MonteCarlo::getProb);
+	monteCarlo.def("price", &MonteCarlo::priceIndependent);
+	monteCarlo.def("setup", &MonteCarlo::setup);
 
 }

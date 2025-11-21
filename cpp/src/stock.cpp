@@ -5,8 +5,8 @@
 #include "stock.h"
 #include "binomialTree.h"
 
-Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol) : model(model), start(start), vol(vol) {
-	this->model->setup(vol);
+Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol, double drift) : model(model), start(start), vol(vol), drift(drift) {
+	this->model->setup(vol, drift);
 }
 
 void Stock::price(std::vector<std::vector<double>> &prices, int step) {

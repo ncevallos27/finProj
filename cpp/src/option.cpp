@@ -26,6 +26,11 @@ double Option::price(double otherMaturity) {
 			}
 			startPrice = startPrice * std::exp(-1 * this->stock->getPricerDiscount() * otherMaturity);
 			break;
+		case PricerType::MonteCarlo:
+			for (auto & price : this->prices) {
+				startPrice += price.back() * prob;
+			}
+			startPrice = startPrice * std::exp(-1 * this->stock->getPricerDiscount() * otherMaturity);
 		default:
 			break;
 	}

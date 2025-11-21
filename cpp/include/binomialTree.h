@@ -19,7 +19,7 @@ public:
 
   // Returns the prices at a given step (from smallest to largest)
   void priceIndependent(std::vector<std::vector<double>> &prices, double start, int step) override;
-  void setup(double vol) override;
+  void setup(double vol, double drift) override;
 
 private:
   double u;
