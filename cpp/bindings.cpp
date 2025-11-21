@@ -13,6 +13,7 @@
 
 #include <pybind11/native_enum.h>
 
+#include "asian.h"
 #include "euro.h"
 
 
@@ -32,6 +33,10 @@ PYBIND11_MODULE(finProj, m) {
 	py::class_<Euro, Payoff, py::smart_holder> euro(m, "Euro", py::is_final());
 	euro.def(py::init<PayoffType>());
 	euro.def("calculate", &Euro::calculate);
+
+	py::class_<Asian, Payoff, py::smart_holder> asian(m, "Asian", py::is_final());
+	asian.def(py::init<PayoffType, int>());
+	asian.def("calculate", &Asian::calculate);
 
 	/*
 	 *	BINDINGS FOR enum CLASS

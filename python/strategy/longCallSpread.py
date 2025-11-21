@@ -1,7 +1,7 @@
 import finProj as fp
 
 class LongCallSpread:
-    def __init__(self, strikeA, stirkeB, stock, timeToMaturity):
+    def __init__(self, strikeA, strikeB, stock, timeToMaturity):
         """
         :param strikeA: strike for long call
         :param stirkeB: strike for short call
@@ -11,7 +11,7 @@ class LongCallSpread:
         assumes that strikeA < StrikeB
         """
         self.strikeA = strikeA
-        self.strikeB = stirkeB
+        self.strikeB = strikeB
         self.stock = stock
         self.timeToMaturity = timeToMaturity
         self.options = []
