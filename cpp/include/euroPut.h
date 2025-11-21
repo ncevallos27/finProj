@@ -11,7 +11,7 @@ public:
 	EuroPut();
 	~EuroPut() override = default;
 
-	void calculate(std::vector<double> &price, double strike) override;
+	double calculate(std::vector<double> &price, double strike) override;
 };
 
 #endif //EUROPUT_H

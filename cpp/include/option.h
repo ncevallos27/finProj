@@ -25,7 +25,6 @@ private:
 	std::shared_ptr<Stock> stock;
 	std::shared_ptr<Payoff> payoff;
 	double strike;
-	std::vector<std::vector<double>> prices;
 	double timeMaturity;
 	OptionPosition position;
 

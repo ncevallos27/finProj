@@ -15,9 +15,9 @@ public:
 	explicit Payoff(Path type);
 	virtual ~Payoff() = default;
 
-	void getPayoffVector(std::vector<std::vector<double>> &prices, double strike);
+	std::vector<double> getPayoffVector(std::vector<std::vector<double>> &prices, double strike);
 
-	virtual void calculate(std::vector<double> &price, double strike) = 0;
+	virtual double calculate(std::vector<double> &price, double strike) = 0;
 
 	[[nodiscard]] Path getType() const;
 protected:

@@ -11,7 +11,7 @@ public:
 	EuroCall();
 	~EuroCall() override = default;
 
-	void calculate(std::vector<double> &price, double strike) override;
+	double calculate(std::vector<double> &price, double strike) override;
 };
 
 #endif //EUROCALL_H

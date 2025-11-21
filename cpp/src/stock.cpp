@@ -3,13 +3,23 @@
 //
 
 #include "stock.h"
+
+#include <iostream>
+#include <ostream>
+
 #include "binomialTree.h"
 
-Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol, double drift) : model(model), start(start), vol(vol), drift(drift) {
+Stock::Stock(const std::shared_ptr<Pricer> &model, double start, double vol, double drift) : model(model), start(start), vol(vol), drift(drift), priced(false), lastPricedStep(-1) {
 	this->model->setup(vol, drift);
 }
 
-void Stock::price(std::vector<std::vector<double>> &prices, int step) {
+void Stock::price(int step) {
+	if (priced && this->lastPricedStep == step) {
+		return;
+	}
+	priced = true;
+	lastPricedStep = step;
+
 	this->model->priceIndependent(prices, this->start, step);
 }
 
@@ -27,4 +37,8 @@ double Stock::getPricerDiscount() const {
 
 double Stock::getPricerProb() const {
 	return this->model->getProb();
+}
+
+std::vector<std::vector<double>>& Stock::getRefPrices() {
+	return prices;
 }
