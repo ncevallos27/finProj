@@ -91,6 +91,7 @@ PYBIND11_MODULE(finProj, m) {
 	stock.def("getPricerProb", &Stock::getPricerProb);
 	stock.def("getRefPrices", &Stock::getRefPrices, py::return_value_policy::reference_internal);
 	stock.def("getDiscount", &Stock::getDiscount);
+	stock.def("getStart", &Stock::getStart);
 
 	/*
 	 *	BINDINGS FOR option CLASS

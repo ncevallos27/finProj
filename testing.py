@@ -1,8 +1,10 @@
 import finProj as fp
 from python.strategy.longCallSpread import LongCallSpread
+from python.strategy.butterfly import ButterflyStrategy
 from python.display.viewStock import ViewStock
 from python.display.viewOption import ViewOption
 from python.display.viewStrategy import ViewStrategy
+
 
 def main():
     """Main entry point of the program."""
@@ -15,7 +17,8 @@ def main():
     s2 = fp.Stock(p2, 60, 0.30, 0.05)
     pf2 = fp.Asian(fp.PayoffType.Call, 30)
     o2 = fp.Option(s2, pf2, 61, 1.0, fp.OptionPosition.Long)
-    lcs = LongCallSpread(61, 70, s2, 1)
+    lcs = LongCallSpread(s2, 61, 70, 1)
+    bf = ButterflyStrategy(s2, 55, 65, 1)
 
     # o2.price()
     # # viewer = ViewStock()
@@ -24,10 +27,12 @@ def main():
     # # viewerOption.plotOptionPayoff(o2, 55, 75, 0.5)
     # # viewerOption.plotOptionPNL(o2, 55, 75, o2.price(), 0.5)
     #
-    # viewerStrategy = ViewStrategy()
-    #
-    # viewerStrategy.viewStrategyPayoff(lcs, 55, 75, 0.5)
-    # viewerStrategy.viewStrategyPNL(lcs, 55, 75, lcs.price(), 0.5)
+    viewerStrategy = ViewStrategy()
+
+    print(bf.price())
+
+    viewerStrategy.viewStrategyPayoff(bf, 50, 70, 0.5)
+    viewerStrategy.viewStrategyPNL(bf, 50, 70, bf.price(), 0.5)
 
 
 

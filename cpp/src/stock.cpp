@@ -46,3 +46,7 @@ std::vector<std::vector<double>>& Stock::getRefPrices() {
 double Stock::getDiscount(double otherMaturity) {
 	return std::exp(-1 * this->getPricerDiscount() * otherMaturity);
 }
+
+double Stock::getStart() const {
+	return this->start;
+}

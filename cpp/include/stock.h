@@ -24,6 +24,8 @@ public:
 
 	[[nodiscard]] std::vector<std::vector<double>>& getRefPrices();
 
+	double getStart() const;
+
 private:
 	bool priced;
 	double lastPricedStep;
