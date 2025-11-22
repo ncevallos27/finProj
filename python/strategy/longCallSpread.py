@@ -36,6 +36,18 @@ class LongCallSpread:
 
         return totalCost
 
+    def getPayoff(self, priceEnd):
+        totalPayoff = 0
+        for option in self.options:
+            price = option.fakeCalculate(priceEnd, option.getStrike())
+            # print(price)
+            if option.getPosition() == fp.OptionPosition.Long:
+                totalPayoff += price
+            else:
+                totalPayoff -= price
+
+        return totalPayoff
+
     def getMaxPayoff(self):
         return (self.strikeB - self.strikeA) - self.price()
 
