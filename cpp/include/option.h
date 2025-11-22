@@ -24,6 +24,10 @@ public:
 	[[nodiscard]] double getStrike() const { return this->strike;}
 
 	double fakeCalculate(double price, double strike);
+	double getExpectation(double otherMaturity);
+	double getDiscount(double otherMaturity);
+
+	double getMaturity();
 
 private:
 	std::shared_ptr<Stock> stock;

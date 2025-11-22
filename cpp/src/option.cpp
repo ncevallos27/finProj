@@ -11,7 +11,7 @@ double Option::price() {
 	return this->price(this->timeMaturity);
 }
 
-double Option::price(double otherMaturity) {
+double Option::getExpectation(double otherMaturity) {
 	double totalSteps = std::round(otherMaturity/this->stock->getPricerTimeStep());
 	this->stock->price(static_cast<int>(totalSteps));
 	std::vector<double> payoffs = this->payoff->getPayoffVector(this->stock->getRefPrices(), strike);
@@ -24,13 +24,11 @@ double Option::price(double otherMaturity) {
 				double binom = std::tgamma(payoffs.size()) / (std::tgamma(i + 1) * std::tgamma(payoffs.size() - i));
 				startPrice += binom * payoffs[i] * std::pow(prob, i) * std::pow(1 - prob, payoffs.size() - 1 - i);
 			}
-			startPrice = startPrice * std::exp(-1 * this->stock->getPricerDiscount() * otherMaturity);
 			break;
 		case PricerType::MonteCarlo:
 			for (auto & payoffD : payoffs) {
 				startPrice += payoffD * prob;
 			}
-			startPrice = startPrice * std::exp(-1 * this->stock->getPricerDiscount() * otherMaturity);
 		default:
 			break;
 	}
@@ -44,4 +42,12 @@ OptionPosition Option::getPosition() const {
 
 double Option::fakeCalculate(double price, double strike) {
 	return this->payoff->fakeCalcuate(price, strike);
+}
+
+double Option::price(double otherMaturity) {
+	return this->getExpectation(otherMaturity) * this->stock->getDiscount(otherMaturity);
+}
+
+double Option::getMaturity() {
+	return this->timeMaturity;
 }

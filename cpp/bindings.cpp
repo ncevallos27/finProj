@@ -90,6 +90,7 @@ PYBIND11_MODULE(finProj, m) {
 	stock.def("getPricerDiscount", &Stock::getPricerDiscount);
 	stock.def("getPricerProb", &Stock::getPricerProb);
 	stock.def("getRefPrices", &Stock::getRefPrices, py::return_value_policy::reference_internal);
+	stock.def("getDiscount", &Stock::getDiscount);
 
 	/*
 	 *	BINDINGS FOR option CLASS
@@ -101,6 +102,8 @@ PYBIND11_MODULE(finProj, m) {
 	option.def("getPosition", &Option::getPosition);
 	option.def("getStrike", &Option::getStrike);
 	option.def("fakeCalculate", &Option::fakeCalculate);
+	option.def("getExpectation", &Option::getExpectation);
+	option.def("getMaturity", &Option::getMaturity);
 
 	/*
 	 *	BINDINGS FOR montecarlo CLASS

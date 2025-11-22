@@ -20,6 +20,8 @@ public:
 
 	double getPricerProb() const;
 
+	double getDiscount(double otherMaturity);
+
 	[[nodiscard]] std::vector<std::vector<double>>& getRefPrices();
 
 private:

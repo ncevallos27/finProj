@@ -12,10 +12,10 @@ class LongCallSpread(Strategy):
 
         assumes that strikeA < StrikeB
         """
+        super().__init__(stock, timeToMaturity)
         self.strikeA = strikeA
         self.strikeB = strikeB
-        self.stock = stock
-        self.timeToMaturity = timeToMaturity
+
         self.options = []
         self.payoff = fp.Euro(fp.PayoffType.Call)
 
@@ -24,6 +24,5 @@ class LongCallSpread(Strategy):
 
     def getMaxPayoff(self):
         return (self.strikeB - self.strikeA) - self.price()
-
 
 

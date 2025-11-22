@@ -17,17 +17,19 @@ def main():
     o2 = fp.Option(s2, pf2, 61, 1.0, fp.OptionPosition.Long)
     lcs = LongCallSpread(61, 70, s2, 1)
 
-    o2.price()
-    # viewer = ViewStock()
-    # # viewer.plotStockPaths(s2)
-    # viewerOption = ViewOption()
-    # viewerOption.plotOptionPayoff(o2, 55, 75, 0.5)
-    # viewerOption.plotOptionPNL(o2, 55, 75, o2.price(), 0.5)
+    # o2.price()
+    # # viewer = ViewStock()
+    # # # viewer.plotStockPaths(s2)
+    # # viewerOption = ViewOption()
+    # # viewerOption.plotOptionPayoff(o2, 55, 75, 0.5)
+    # # viewerOption.plotOptionPNL(o2, 55, 75, o2.price(), 0.5)
+    #
+    # viewerStrategy = ViewStrategy()
+    #
+    # viewerStrategy.viewStrategyPayoff(lcs, 55, 75, 0.5)
+    # viewerStrategy.viewStrategyPNL(lcs, 55, 75, lcs.price(), 0.5)
 
-    viewerStrategy = ViewStrategy()
 
-    viewerStrategy.viewStrategyPayoff(lcs, 55, 75, 0.5)
-    viewerStrategy.viewStrategyPNL(lcs, 55, 75, lcs.price(), 0.5)
 
 if __name__ == "__main__":
     main()

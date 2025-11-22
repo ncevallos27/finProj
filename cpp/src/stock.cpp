@@ -42,3 +42,7 @@ double Stock::getPricerProb() const {
 std::vector<std::vector<double>>& Stock::getRefPrices() {
 	return prices;
 }
+
+double Stock::getDiscount(double otherMaturity) {
+	return std::exp(-1 * this->getPricerDiscount() * otherMaturity);
+}
