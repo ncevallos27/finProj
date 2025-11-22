@@ -12,6 +12,7 @@
 #include <option.h>
 
 #include <pybind11/native_enum.h>
+#include <pybind11/stl.h>
 
 #include "asian.h"
 #include "euro.h"
@@ -26,6 +27,7 @@ PYBIND11_MODULE(finProj, m) {
 	py::class_<Payoff, py::smart_holder> payoff(m, "Payoff");
 	payoff.def("getPayoffVector", &Payoff::getPayoffVector);
 	payoff.def("getType", &Payoff::getType);
+	payoff.def("fakeCalculate", &Payoff::fakeCalcuate);
 
 	/*
 	 *	BINDINGS FOR derived payoff CLASSES
@@ -87,6 +89,7 @@ PYBIND11_MODULE(finProj, m) {
 	stock.def("getPricerIdentity", &Stock::getPricerIdentity);
 	stock.def("getPricerDiscount", &Stock::getPricerDiscount);
 	stock.def("getPricerProb", &Stock::getPricerProb);
+	stock.def("getRefPrices", &Stock::getRefPrices, py::return_value_policy::reference_internal);
 
 	/*
 	 *	BINDINGS FOR option CLASS
@@ -96,6 +99,8 @@ PYBIND11_MODULE(finProj, m) {
 	option.def("price", py::overload_cast<>(&Option::price));
 	option.def("price", py::overload_cast<double>(&Option::price));
 	option.def("getPosition", &Option::getPosition);
+	option.def("getStrike", &Option::getStrike);
+	option.def("fakeCalculate", &Option::fakeCalculate);
 
 	/*
 	 *	BINDINGS FOR montecarlo CLASS

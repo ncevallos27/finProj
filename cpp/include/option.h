@@ -19,7 +19,11 @@ public:
 
 	double price();
 	double price(double otherMaturity);
+
 	[[nodiscard]] OptionPosition getPosition() const;
+	[[nodiscard]] double getStrike() const { return this->strike;}
+
+	double fakeCalculate(double price, double strike);
 
 private:
 	std::shared_ptr<Stock> stock;

@@ -11,14 +11,12 @@ Asian::Asian(PayoffType type, int lookBack) : Payoff(Path::Dependent, type), loo
 double Asian::calculate(std::vector<double> &price, double strike) {
 	std::size_t newLookBack;
 	if (price.size() < lookBack) {
-		std::cerr << "lookBack to big, truncating to size of path: " << price.size() << std::endl;
 		newLookBack = price.size();
 	} else {
 		newLookBack = lookBack;
 	}
 
 	if (newLookBack == 0) {
-		std::cerr << "lookBack is 0 or path is empty, returning 0 payoff" << std::endl;
 		return 0.0;
 	}
 

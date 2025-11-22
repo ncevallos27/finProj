@@ -24,6 +24,9 @@ public:
 	virtual double calculate(std::vector<double> &price, double strike) = 0;
 
 	[[nodiscard]] Path getType() const;
+
+	double fakeCalcuate(double price, double strike);
+
 protected:
 	Path type;
 	PayoffType payoffType;

@@ -41,3 +41,7 @@ double Option::price(double otherMaturity) {
 OptionPosition Option::getPosition() const {
 	return this->position;
 }
+
+double Option::fakeCalculate(double price, double strike) {
+	return this->payoff->fakeCalcuate(price, strike);
+}

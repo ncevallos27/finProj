@@ -20,3 +20,8 @@ std::vector<double> Payoff::getPayoffVector(std::vector<std::vector<double>>&pri
 Path Payoff::getType() const {
 	return this->type;
 }
+
+double Payoff::fakeCalcuate(double price, double strike) {
+	std::vector payoffs{price};
+	return this->calculate(payoffs, strike);
+}
