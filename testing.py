@@ -29,7 +29,5 @@ def main():
     viewerStrategy.viewStrategyPayoff(lcs, 55, 75, 0.5)
     viewerStrategy.viewStrategyPNL(lcs, 55, 75, lcs.price(), 0.5)
 
-
-
 if __name__ == "__main__":
     main()
